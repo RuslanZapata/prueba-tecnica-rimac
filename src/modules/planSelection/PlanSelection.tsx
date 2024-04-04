@@ -33,11 +33,13 @@ const PlanSelection = () => {
   }, [navigate])
 
   const onChangePlan = useCallback((plan:DataPlan) => {
+    if (addToPlan) {
     addToPlan({
       ...plan,
       user: forWhom === 'meUser' ? 'meUser' : 'heUser',
       price: forWhom === 'meUser' ? plan.price : (plan.price as number) * 0.95
     })
+  }
     handlenClick()
   }, [forWhom, addToPlan, handlenClick])
 

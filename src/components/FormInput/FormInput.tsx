@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import { useState } from "react";
 import "../../sass/components/formInput/_formInput.scss";
 import type { FormInput } from "../../core/interfaces/formInput.interface";
@@ -17,7 +18,7 @@ const FormInput: React.FC<FormInput> = (props) => {
         {...inputProps}
         onChange={onChange}
         onBlur={handleFocus}
-        focused={focused.toString()}
+        focused={()=>focused.toString()}
       />
       <label className="formInput__lbl">{label}</label>
       <span>{errorMessage}</span>

@@ -1,7 +1,11 @@
 import IcFamily from "../../assets/IcFamily";
 import "../../sass/components/summaryCard/_summaryCard.scss";
+import { usePlan } from "../../core/hook/plan.hook";
 
-const SummaryCard = ({plan}) => {
+
+const SummaryCard = () => {
+  const { plan } = usePlan()
+
   const {dataCustomer, dataPlan, dataUser} = plan
 
   return (

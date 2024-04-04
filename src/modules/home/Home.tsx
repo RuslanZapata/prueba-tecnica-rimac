@@ -29,8 +29,7 @@ const Home = () => {
     navigate('/seleccion-plan', { state: { back: '/' } })
   }, [navigate])
 
-  const onChange = useCallback((e: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>,HTMLInputElement>) => {
-    console.log(e)
+  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.type === 'checkbox') {
       setValues({ ...values, [e.target.name]: e.target.checked });
     } else {
@@ -38,21 +37,25 @@ const Home = () => {
     }
   }, [setValues, values])
 
-  
+
   const onChangeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValues({ ...values, [e.target.name]: e.target.value, typeDocument: e.target.name });
   }, [setValues, values])
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addCustomer(values)
+    if (addCustomer) {
+      addCustomer(values)
+    }
     handlenClick()
   }, [addCustomer, handlenClick, values])
 
   const saveUser = useCallback(async () => {
     try {
       const responce = await getUsersServiceApi()
-      addUser({ ...responce, age: 25 })
+      if (addUser) {
+        addUser({ ...responce, age: 25 })
+      }
     } catch (err) {
       console.log('ERROR: ', err)
       return true
