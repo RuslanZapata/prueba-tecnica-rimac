@@ -1,7 +1,8 @@
 import { useState } from "react"
+import { DocumentNumber } from "../../interfaces/documentNumber.interface"
 
 export const DocumentNumberHook = () => {
-  const [value] = useState({
+  const [value] = useState<DocumentNumber>({
     name: "documentNumber",
     type: "text",
     placeholder: "Ingrese su número de DNI",

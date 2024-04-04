@@ -29,12 +29,18 @@ const Home = () => {
     navigate('/seleccion-plan', { state: { back: '/' } })
   }, [navigate])
 
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = useCallback((e: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>,HTMLInputElement>) => {
+    console.log(e)
     if (e.target.type === 'checkbox') {
       setValues({ ...values, [e.target.name]: e.target.checked });
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
     }
+  }, [setValues, values])
+
+  
+  const onChangeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
   }, [setValues, values])
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
@@ -69,7 +75,7 @@ const Home = () => {
 
         <div style={{ width: '100%', display: 'flex' }}>
           <FormSelect
-            onChange={onChange}
+            onChange={onChangeSelect}
             selectorWidth
             {...typeDocument}
           />

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "../../sass/components/formInput/_formInput.scss";
+import type { FormInput } from "../../core/interfaces/formInput.interface";
 
-const FormInput = (props) => {
+const FormInput: React.FC<FormInput> = (props) => {
   const [focused, setFocused] = useState(false);
   const { label, onChange, errorMessage, entranceWidth = false, ...inputProps } = props;
 

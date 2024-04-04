@@ -2,9 +2,10 @@ import IcAddUserLight from "../../assets/IcAddUserLight"
 import IcProtectionLight from "../../assets/IcProtectionLight"
 // import RadioCheck from "../../assets/RadioCheck-on"
 import "../../sass/components/customerCard/_customerCard.scss";
+import type { CustomerCard } from "../../core/interfaces/customerCard.interface";
 
-const CustomerCard = ({ isChecked, onChange, title, description, whoUser }) => {
-  
+const CustomerCard: React.FC<CustomerCard> = (props) => {
+  const { isChecked, onChange, title, description, whoUser } = props
   return (
     <div className="customer-card">
       <div>
