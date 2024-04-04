@@ -2,7 +2,7 @@ import IcHomeLight from "../../assets/IcHomeLight"
 import IcHospitalLight from "../../assets/IcHospitalLight"
 import "../../sass/components/planCard/_planCard.scss";
 
-const PlanCard = ({plan, onChangePlan}) => {
+const PlanCard = ({plan, onChangePlan, forWhom}) => {
   return (
     <div className="plan-card">
       <p className={`plan-card__recommended ${plan.name === 'Plan en Casa y Clínica' ? '' : 'nobackground'}`}>{plan.name === 'Plan en Casa y Clínica' ? 'Plan recomendado' : ''}</p>
@@ -10,7 +10,7 @@ const PlanCard = ({plan, onChangePlan}) => {
         <div className="plan-card__Headboard__head">
           <h4 className="plan-card__Headboard__head__title">{plan.name}</h4>
           <p className="plan-card__Headboard__head__cost-plan">COSTO DEl PLAN.</p>
-          <p className="plan-card__Headboard__head__cost">${plan.price} al mes</p>
+          <p className="plan-card__Headboard__head__cost">${forWhom === 'meUser' ? plan.price : plan.price*0.95} al mes</p>
         </div>
         {plan.name === 'Plan en Casa y Clínica' ? <IcHospitalLight /> : <IcHomeLight />}
       </div>

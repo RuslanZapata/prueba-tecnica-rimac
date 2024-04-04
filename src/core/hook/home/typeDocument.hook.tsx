@@ -1,7 +1,8 @@
 import { useState } from "react"
+import { TypeDocument } from "../../interfaces/typeDocument.interface";
 
 export const DocumentHook = () => {
-  const [value] = useState({
+  const [value] = useState<TypeDocument>({
     errorMessage: "¡Tiene  que seleccione un tipo de documento!",
     label: "Tipo de documento",
     name: "typeDocument",

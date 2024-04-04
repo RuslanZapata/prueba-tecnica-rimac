@@ -2,22 +2,16 @@ import "../../sass/modules/planSelection/_planSelection.scss";
 import BackIcon from "../../assets/BackIcon";
 import PlanCard from "../../components/PlanCard/PlanCard";
 import CustomerCard from "../../components/CustomerCard/CustomerCard";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getPlansServiceApi } from "../../core/service/plans";
-import { usePlan } from "../../core/contexts/plan.hook";
+import { usePlan } from "../../core/hook/plan.hook";
 import { useNavigate } from "react-router-dom";
-
-type Planes = {
-  name: string
-  price: number
-  description: string[]
-  age: number
-}
+import { DataPlan } from "../../core/interfaces/plan.interface";
 
 const PlanSelection = () => {
   const navigate = useNavigate()
   const [forWhom, setForWhom] = useState('')
-  const [plansList, setPlansList] = useState<Planes[]>()
+  const [plansList, setPlansList] = useState<DataPlan[]>()
   const { addToPlan } = usePlan()
 
   const userMy = [
@@ -34,24 +28,28 @@ const PlanSelection = () => {
     },
   ]
 
-  const handlenClick = () => {
+  const handlenClick = useCallback(() => {
     navigate('/resumen', { state: { back: '/' } })
-  }
+  }, [navigate])
 
-  const onChangePlan = (plan) => {
-    addToPlan({ ...plan, user: forWhom?.meUser ? 'meUser' : 'heUser' })
+  const onChangePlan = useCallback((plan:DataPlan) => {
+    addToPlan({
+      ...plan,
+      user: forWhom === 'meUser' ? 'meUser' : 'heUser',
+      price: forWhom === 'meUser' ? plan.price : (plan.price as number) * 0.95
+    })
     handlenClick()
-  };
+  }, [forWhom, addToPlan, handlenClick])
 
-  const onChangeCustomerCard = (whoUser: string) => {
+  const onChangeCustomerCard = useCallback((whoUser: string) => {
     if (forWhom === whoUser) {
       setForWhom('')
     } else {
       setForWhom(whoUser)
     }
-  };
+  }, [forWhom, setForWhom]);
 
-  const listPlans = async () => {
+  const listPlans = useCallback(async () => {
     try {
       const responce = await getPlansServiceApi()
       setPlansList(responce)
@@ -59,7 +57,7 @@ const PlanSelection = () => {
       console.log('ERROR: ', err)
       return true
     }
-  }
+  }, [setPlansList])
 
   useEffect(() => {
     listPlans()
@@ -76,20 +74,20 @@ const PlanSelection = () => {
       <div className="plan-selection__for-whom">
         {userMy.map((item, index) => {
           return <CustomerCard
-                  onChange={onChangeCustomerCard}
-                  key={index}
-                  title={item.title}
-                  description={item.description}
-                  whoUser={item.whoUser}
-                  isChecked={forWhom === item.whoUser}
-                />
+            onChange={onChangeCustomerCard}
+            key={index}
+            title={item.title}
+            description={item.description}
+            whoUser={item.whoUser}
+            isChecked={forWhom === item.whoUser}
+          />
         })}
       </div>
       {forWhom && (
         <div className="plan-selection__container">
           {
             plansList?.map((plan, index) => {
-              return <PlanCard key={index} onChangePlan={onChangePlan} plan={plan} />
+              return <PlanCard forWhom={forWhom} key={index} onChangePlan={onChangePlan} plan={plan} />
             })
           }
         </div>

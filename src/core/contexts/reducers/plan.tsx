@@ -1,4 +1,11 @@
-export const planInitialState = JSON.parse(window.localStorage.getItem('plan')) || {
+import { Plan } from "../../interfaces/plan.interface";
+
+type Action = {
+  type: string
+  payload: Plan
+}
+
+export const planInitialState:Plan = JSON.parse(window.localStorage.getItem('plan')!) || {
   dataUser: {},
   dataCustomer: {},
   dataPlan: {}
@@ -12,33 +19,38 @@ export const PLAN_ACTION_TYPES = {
 }
 
 // update localStorage with state for plan
-export const updateLocalStorage = state => {
+export const updateLocalStorage = (state:Plan) => {
   window.localStorage.setItem('plan', JSON.stringify(state))
 }
 
-export const planReducer = (state, action) => {
+export const planReducer = (state:Plan, action:Action) => {
   const { type: actionType, payload: actionPayload } = action
   switch (actionType) {
     case PLAN_ACTION_TYPES.ADD_TO_PLAN: {
-      const newState = { ...state, dataPlan: actionPayload }
+      const newState:Plan = { ...state, dataPlan: actionPayload }
       updateLocalStorage(newState)
       return newState
     }
 
     case PLAN_ACTION_TYPES.ADD_USER: {
-      const newState = { ...state, dataUser: actionPayload }
+      console.log(actionPayload)
+      const newState:Plan = { ...state, dataUser: actionPayload }
       updateLocalStorage(newState)
       return newState
     }
 
     case PLAN_ACTION_TYPES.ADD_CUSTOMER: {
-      const newState = { ...state, dataCustomer: actionPayload }
+      const newState:Plan = { ...state, dataCustomer: actionPayload }
       updateLocalStorage(newState)
       return newState
     }
 
     case PLAN_ACTION_TYPES.CLEAR_PLAN: {
-      updateLocalStorage([])
+      updateLocalStorage({
+        dataUser: {},
+        dataCustomer: {},
+        dataPlan: {}
+      })
       return []
     }
   }

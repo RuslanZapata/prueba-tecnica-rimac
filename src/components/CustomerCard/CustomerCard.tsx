@@ -3,7 +3,7 @@ import IcProtectionLight from "../../assets/IcProtectionLight"
 // import RadioCheck from "../../assets/RadioCheck-on"
 import "../../sass/components/customerCard/_customerCard.scss";
 
-const CustomerCard = ({ isChecked, selectedcard, onChange, title, description, whoUser }) => {
+const CustomerCard = ({ isChecked, onChange, title, description, whoUser }) => {
   
   return (
     <div className="customer-card">

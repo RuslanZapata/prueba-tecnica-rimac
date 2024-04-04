@@ -1,9 +1,7 @@
 .plan-selection{
   width: 100%;
   padding: 64px 216px 112px 216px;
-  // @media (max-width: 680px) {
-  //   padding: 32px 24px 20px 24px;
-  // }
+  flex: 1;
   @media (max-width: 728px) {
     padding: 32px 24px 20px 24px;
   }

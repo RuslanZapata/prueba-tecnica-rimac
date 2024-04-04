@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import FormInput from "../../components/FormInput/FormInput";
 import FormSelect from "../../components/FormSelect/FormSelect";
 import family from '../../assets/family.png'
@@ -6,13 +6,13 @@ import "../../sass/modules/home/_home.scss";
 import { useNavigate } from 'react-router-dom';
 import { DocumentNumberHook } from '../../core/hook/home/documentNumber.hook';
 import { PhoneHook } from '../../core/hook/home/phone.hook';
-import { DocumentHook } from '../../core/hook/home/document.hook';
-import { usePlan } from "../../core/contexts/plan.hook";
+import { DocumentHook } from '../../core/hook/home/typeDocument.hook';
+import { usePlan } from "../../core/hook/plan.hook";
 import { getUsersServiceApi } from '../../core/service/user';
 
 const Home = () => {
   const navigate = useNavigate()
-  const { addCustomer, addUser, plan } = usePlan()
+  const { addCustomer, addUser } = usePlan()
   const [values, setValues] = useState({
     typeDocument: "",
     documentNumber: "",
@@ -25,36 +25,37 @@ const Home = () => {
   const phone = PhoneHook()
   const documentNumber = DocumentNumberHook();
 
-  const handlenClick = () => {
+  const handlenClick = useCallback(() => {
     navigate('/seleccion-plan', { state: { back: '/' } })
-  }
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  }, [navigate])
+
+  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.type === 'checkbox') {
       setValues({ ...values, [e.target.name]: e.target.checked });
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
     }
-  };
+  }, [setValues, values])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addCustomer(values)
     handlenClick()
-  };
+  }, [addCustomer, handlenClick, values])
 
-  const listPlans = async () => {
+  const saveUser = useCallback(async () => {
     try {
       const responce = await getUsersServiceApi()
-      addUser(responce)
+      addUser({ ...responce, age: 25 })
     } catch (err) {
       console.log('ERROR: ', err)
       return true
     }
-  }
-  
-  useEffect(()=>{
-    listPlans()
-  },[])
+  }, [addUser])
+
+  useEffect(() => {
+    saveUser()
+  }, [])
 
   return (
     <div className='home'>

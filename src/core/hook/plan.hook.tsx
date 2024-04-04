@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PlanContext } from "./usePlan";
+import { PlanContext } from "../contexts/plan";
 
 export const usePlan = () => {
   const context = useContext(PlanContext)
