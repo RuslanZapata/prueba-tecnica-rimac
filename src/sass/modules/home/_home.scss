@@ -1,0 +1,124 @@
+.home {
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  flex: 1;
+  align-items: start;
+  padding-top: 32px;
+
+  &__banner {
+    display: flex;
+    align-items: flex-start;
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    &__img {
+      width: 480px;
+      height: 590px;
+      object-fit: cover;
+      border-radius: 50px;
+    }
+  }
+
+  &__from {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 352px;
+    height: 100%;
+    justify-content: start;
+
+    &__text {
+      color: #03050F;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 16px;
+      letter-spacing: 0.4px;
+
+      display: flex;
+      padding: 4px 8px;
+      align-items: center;
+      gap: 4px;
+
+      border-radius: 4px;
+      background: linear-gradient(86deg, #00F4E2 0%, #00FF7F 100%);
+    }
+
+    &__subtitle {
+      color: #03050F;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 40px;
+    }
+
+    &__description {
+      color: #03050F;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    &__termsConditions {
+      display: flex;
+      width: 351px;
+      align-items: center;
+      gap: 12px;
+
+      &__inp {
+        margin-right: 12px;
+        width: 20px;
+        height: 20px;
+        accent-color: #0A051E;
+        border-radius: 25%;
+        border: 1px solid black;
+        appearance: none;
+        -webkit-appearance: none;
+        &:checked{
+          appearance: auto;
+      clip-path: circle(60%);
+
+        }
+      }
+      &__lbl {
+        color: #0A051E;
+        display: flex;
+        font-size: 12px;
+
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+      }
+    }
+
+    a {
+      color: #03050F;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+      text-decoration-line: underline;
+    }
+
+    &__button {
+      display: flex;
+      padding: 20px 40px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+
+      border-radius: 40px;
+      background: #03050F;
+
+      color: #FFF;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 24px;
+      letter-spacing: 0.4px;
+
+    }
+  }
+}

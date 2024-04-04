@@ -1,7 +1,7 @@
 import IcAddUserLight from "../../assets/IcAddUserLight"
 import IcProtectionLight from "../../assets/IcProtectionLight"
 // import RadioCheck from "../../assets/RadioCheck-on"
-import "../../sass/components/CustomerCard/_customerCard.scss";
+import "../../sass/components/customerCard/_customerCard.scss";
 
 const CustomerCard = ({ isChecked, selectedcard, onChange, title, description, whoUser }) => {
   
