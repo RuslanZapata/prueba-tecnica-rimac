@@ -17,15 +17,15 @@
     border: 1px solid #c7c7c7;
     border-radius: 8px;
 
-    &:invalid[focused="true"]{
+    &:invalid[data-focused="true"]{
       border: 1px solid red;
     }
 
-    &:invalid[focused="true"] ~ span{
+    &:invalid[data-focused="true"] ~ span{
       display: block;
     }
 
-    &:invalid[focused="true"] ~ .formInput{
+    &:invalid[data-focused="true"] ~ .formInput{
       height: 88px;
     }
   }

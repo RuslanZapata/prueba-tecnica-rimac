@@ -18,7 +18,7 @@ const FormInput: React.FC<FormInput> = (props) => {
         {...inputProps}
         onChange={onChange}
         onBlur={handleFocus}
-        focused={()=>focused.toString()}
+        data-focused={()=>focused.toString()}
       />
       <label className="formInput__lbl">{label}</label>
       <span>{errorMessage}</span>
